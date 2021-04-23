@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { createArticle } from '../../store/articles'
+import {useDispatch, useSelector} from 'react-redux'
+import {createArticle} from '../../store/articles'
+import { getUser } from '../../store/user'
 import Button from '../../components/Button'
 import Textarea from '../../components/Textarea'
 import Input from '../../components/Input'
 import Banner from '../../components/Banner'
 import Select from '../../components/Select'
+import Auth from "../../HOC/auth";
 
 const CreateArticle = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { user } = useSelector(getUser)
   const [countries, setCountries] = useState([])
   const [displayBanner, setDisplayBanner] = useState(false)
   const [fields, setFields] = useState({
@@ -18,6 +21,7 @@ const CreateArticle = () => {
     country: 'AF',
     description: '',
     price: '0.00',
+    user: user.id
   })
   
   useEffect(() => {
@@ -58,6 +62,7 @@ const CreateArticle = () => {
       country: 'AF',
       description: '',
       price: '0.00',
+      user: user.id
     })
   }
 
@@ -97,6 +102,7 @@ const CreateArticle = () => {
           value={fields.country}
           handleChange={handleChangeField}
         />
+        <span>Auteur : {user.id}</span>
         <Button type="submit" text="Ajouter article" />
         <Button text="Articles" handleClick={() => history.push('/articles')} />
       </form>
@@ -104,4 +110,4 @@ const CreateArticle = () => {
   )
 }
 
-export default CreateArticle;
+export default Auth(CreateArticle);

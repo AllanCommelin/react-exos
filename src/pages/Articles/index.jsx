@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import ConfirmationPopup from '../../components/ConfirmationPopup'
 import ArticlePreview from '../../components/ArticlePreview'
 import { getArticles, removeArticleById, retrieveArticles } from '../../store/articles'
+import Auth from "../../HOC/auth";
 
 const Articles = () => {
   const history = useHistory();
@@ -42,4 +43,4 @@ const Articles = () => {
   )
 }
 
-export default Articles;
+export default Auth(Articles);

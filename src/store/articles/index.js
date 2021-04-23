@@ -30,6 +30,7 @@ const {
 
 // Redux-thunk
 export const createArticle = article => async dispatch => {
+  console.log('article', article)
   try {
     const response = await fetch("http://localhost:3004/articles", {
       method: 'POST',

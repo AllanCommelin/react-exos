@@ -1,8 +1,12 @@
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
+import {useSelector} from "react-redux";
+import {getUser} from "../../store/user";
 
 const ArticlePreview = ({ article, displayPopup }) => {
   const history = useHistory();
+  const { user } = useSelector(getUser)
+
 
   const displayConfirmationPopup = e => {
     e.stopPropagation();
@@ -14,7 +18,7 @@ const ArticlePreview = ({ article, displayPopup }) => {
       <img className="mb-5" src="https://picsum.photos/200/100" alt=""/>
       <p className="text-center">{article.title}</p>
       <p className="text-center">{article.price}</p>
-      {displayPopup && <button onClick={displayConfirmationPopup}>X</button>}
+      {Object.entries(user).length > 0 && user.id === article.user && displayPopup && <button onClick={displayConfirmationPopup}>X</button>}
     </div>
   )
 }
